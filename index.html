@@ -135,8 +135,9 @@
   /* Products */
   .product-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
   .product-card{background:var(--paper-2); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;}
-  .product-photo{aspect-ratio:4/3; background:linear-gradient(135deg, #eef1f8, #e2e6ee); display:flex; align-items:center; justify-content:center; color:var(--slate-2); font-size:13px; gap:8px; flex-direction:column;}
+  .product-photo{aspect-ratio:4/3; background:linear-gradient(135deg, #eef1f8, #e2e6ee); display:flex; align-items:center; justify-content:center; color:var(--slate-2); font-size:13px; gap:8px; flex-direction:column; overflow:hidden;}
   .product-photo i{font-size:38px;}
+  .product-photo img{width:100%; height:100%; object-fit:cover;}
   .product-body{padding:22px 24px;}
   .product-tag{font-family:'JetBrains Mono', monospace; font-size:12px; font-weight:700; color:var(--blue); letter-spacing:0.02em;}
   .product-body h3{font-size:19px; margin-top:6px; color:var(--ink);}
@@ -166,8 +167,9 @@
 
   /* Gallery */
   .gallery-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
-  .gallery-item{aspect-ratio:4/3; background:var(--paper-2); border:1px dashed var(--line); border-radius:var(--radius); display:flex; align-items:center; justify-content:center; color:var(--slate-2); font-size:13px; flex-direction:column; gap:6px;}
+  .gallery-item{aspect-ratio:4/3; background:var(--paper-2); border:1px dashed var(--line); border-radius:var(--radius); display:flex; align-items:center; justify-content:center; color:var(--slate-2); font-size:13px; flex-direction:column; gap:6px; overflow:hidden;}
   .gallery-item i{font-size:26px;}
+  .gallery-item img{width:100%; height:100%; object-fit:cover;}
 
   /* Docs */
   .doc-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px;}
@@ -298,7 +300,7 @@
     </div>
     <div class="product-grid">
       <div class="product-card">
-        <div class="product-photo"><i class="ri-bank-card-2-line"></i>제품 사진 준비 중</div>
+        <div class="product-photo"><img src="/images/kis-1020-2inch.jpg" alt="KIS-1020 2인치 카드단말기" loading="lazy"></div>
         <div class="product-body">
           <div class="product-tag">KIS-1020</div>
           <h3>2인치 단말기</h3>
@@ -314,9 +316,9 @@
         </div>
       </div>
       <div class="product-card">
-        <div class="product-photo"><i class="ri-bank-card-2-line"></i>제품 사진 준비 중</div>
+        <div class="product-photo"><img src="/images/fiserv-mpos1901ae.jpg" alt="Fiserv MPOS-1901AE 3인치 카드단말기" loading="lazy"></div>
         <div class="product-body">
-          <div class="product-tag">KIS-1420</div>
+          <div class="product-tag">Fiserv MPOS-1901AE</div>
           <h3>3인치 단말기</h3>
           <ul class="spec-list">
             <li>4.3인치 컬러 LCD (480×272)</li>
@@ -326,6 +328,20 @@
           </ul>
           <div class="pros-cons">
             <div class="pro">장점: POS 연동 가능, 자동 매출 연동 가능</div>
+          </div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-photo"><img src="/images/toss-pos.jpg" alt="탁상형 터치스크린 카드결제기" loading="lazy"></div>
+        <div class="product-body">
+          <div class="product-tag">토스페이먼츠 포스</div>
+          <h3>탁상형 터치스크린 결제기</h3>
+          <ul class="spec-list">
+            <li>탁상 스탠드형 터치스크린 결제 화면</li>
+            <li>카페·소형 매장에 적합한 컴팩트 디자인</li>
+          </ul>
+          <div class="pros-cons">
+            <div class="pro">장점: 좁은 카운터에도 설치 용이</div>
           </div>
         </div>
       </div>
@@ -342,7 +358,7 @@
       <h2>간결한 최신형 포스 세트</h2>
     </div>
     <div class="product-card" style="max-width:520px; margin:0 auto;">
-      <div class="product-photo"><i class="ri-store-2-line"></i>제품 사진 준비 중</div>
+      <div class="product-photo"><img src="/images/pos-set.jpg" alt="POS 금전함 2인치 단말기 롤지 세트" loading="lazy"></div>
       <div class="product-body">
         <div class="product-tag">RSC-J600</div>
         <h3>POS + 금전함 + 2인치 단말기 + 롤지</h3>
@@ -364,7 +380,7 @@
     </div>
     <div class="product-grid">
       <div class="product-card">
-        <div class="product-photo"><i class="ri-wifi-line"></i>제품 사진 준비 중</div>
+        <div class="product-photo"><img src="/images/kis-8310-wireless.jpg" alt="KIS-8310 무선 카드단말기" loading="lazy"></div>
         <div class="product-body">
           <div class="product-tag">KIS-8310</div>
           <h3>무선 단말기</h3>
@@ -375,9 +391,9 @@
         </div>
       </div>
       <div class="product-card">
-        <div class="product-photo"><i class="ri-bluetooth-line"></i>제품 사진 준비 중</div>
+        <div class="product-photo"><img src="/images/kis-btr1100-bluetooth.jpg" alt="KIS-BTR 1100 블루투스 카드단말기" loading="lazy"></div>
         <div class="product-body">
-          <div class="product-tag">BTB-1500</div>
+          <div class="product-tag">KIS-BTR 1100</div>
           <h3>블루투스 단말기</h3>
           <ul class="spec-list">
             <li>스마트폰과 블루투스로 연결</li>
@@ -426,6 +442,7 @@
       <div class="eyebrow">KIOSK</div>
       <h2>알뜰 키오스크 장점</h2>
     </div>
+    <img src="/images/kiosk.jpg" alt="알뜰 키오스크 설치 예시" loading="lazy" style="display:block; width:100%; max-width:520px; margin:0 auto 36px; border-radius:var(--radius); box-shadow:0 8px 24px rgba(0,0,0,0.08);">
     <ul class="perk-list">
       <li>저렴한 가격대의 알뜰 키오스크</li>
       <li>한 대로 포스와 키오스크 동시 사용 가능</li>
@@ -445,12 +462,12 @@
     <div class="section-head">
       <div class="eyebrow">INSTALLATION</div>
       <h2>설치 후 사진</h2>
-      <p>* 실제 설치 사진 준비 중입니다. 사진을 받는 대로 이 자리에 교체할 예정입니다.</p>
+      <p>* 실제 매장 설치 사진입니다.</p>
     </div>
     <div class="gallery-grid">
-      <div class="gallery-item"><i class="ri-image-line"></i>설치 사진 1</div>
-      <div class="gallery-item"><i class="ri-image-line"></i>설치 사진 2</div>
-      <div class="gallery-item"><i class="ri-image-line"></i>설치 사진 3</div>
+      <div class="gallery-item"><img src="/images/install-1.jpg" alt="매장 POS 설치 사진" loading="lazy"></div>
+      <div class="gallery-item"><img src="/images/install-2.jpg" alt="카페 키오스크 설치 사진" loading="lazy"></div>
+      <div class="gallery-item"><img src="/images/install-3.jpg" alt="카드단말기 설치 사진" loading="lazy"></div>
     </div>
   </div>
 </section>
