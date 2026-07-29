@@ -679,7 +679,7 @@
       </div>
       <button type="submit" class="btn-primary apply-submit">신청하기</button>
     </form>
-    <p class="apply-note">* 신청하기를 누르면 문자 앱이 열립니다. 내용 확인 후 전송 버튼을 눌러주시면 접수됩니다.</p>
+    <p class="apply-note">* 신청하기를 누르면 이메일 앱이 열립니다. 내용 확인 후 전송 버튼을 눌러주시면 접수됩니다. (메일 앱이 연결되어 있지 않다면 010-3951-0535로 전화·문자 주셔도 됩니다.)</p>
   </div>
 </section>
 
@@ -1030,7 +1030,7 @@
     });
   });
 
-  const OWNER_PHONE = '01039510535';
+  const OWNER_EMAIL = 'hasa21@naver.com';
   const applyForm = document.getElementById('applyForm');
   applyForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -1042,19 +1042,9 @@
       alert('모든 항목을 입력해주세요.');
       return;
     }
-    const message = `[설치 신청]\n업종: ${biz}\n지역: ${region}\n대표자번호: ${phone}\n가게주소: ${address}`;
-    const ua = navigator.userAgent;
-    const isIOS = /iPhone|iPad|iPod/i.test(ua);
-    const isAndroid = /Android/i.test(ua);
-    if (isIOS || isAndroid) {
-      const sep = isIOS ? '&' : '?';
-      window.location.href = `sms:${OWNER_PHONE}${sep}body=${encodeURIComponent(message)}`;
-    } else {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(message).catch(() => {});
-      }
-      alert('PC에서는 문자 전송이 어려워요. 신청 내용이 복사되었으니 010-3951-0535로 문자를 보내주시거나 전화 주시면 됩니다.');
-    }
+    const subject = `[온라인 설치 신청] ${biz} - ${region}`;
+    const body = `업종: ${biz}\n지역: ${region}\n대표자번호: ${phone}\n가게주소: ${address}`;
+    window.location.href = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 </script>
 </body>
