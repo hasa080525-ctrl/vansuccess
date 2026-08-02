@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://vansuccess.co.kr/sitemap.xml
+Sitemap: https://vansuccess.co.kr/sitemap-areas.xml
