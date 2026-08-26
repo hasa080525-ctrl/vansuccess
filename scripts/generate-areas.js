@@ -44,7 +44,7 @@ const REGIONS = [
 const PRODUCTS = [
   { key: 'card', label: '카드단말기', title: '카드단말기', body: '매장 규모와 업종에 맞춰 카드단말기를 무료로 설치해드립니다. 2인치·3인치 등 원하시는 모델을 상담을 통해 선택하실 수 있으며, 설치비·관리비·위약금·신청비가 전혀 없습니다.', tags: ['무료설치', '위약금 없음', '당일 A/S'] },
   { key: 'wireless', label: '무선단말기', title: '무선 카드단말기 (KIS-8310)', body: '3G/4G(LTE)·와이파이를 지원하는 무선 카드단말기입니다. 배터리 완충 시 종일 사용이 가능해, 매장 안에서 자리를 옮겨가며 결제하거나 배달·포장 응대가 잦은 매장에 적합합니다.', tags: ['LTE·와이파이', '종일 사용', '이동 결제'] },
-  { key: 'wired', label: '유선단말기', title: '유선 카드단말기 (KIS-1020)', body: '이더넷 연결을 기본 탑재한 유선 카드단말기입니다. 2인치 써멀 프린터를 사용하며, 카운터가 고정된 매장에서 안정적인 결제 환경을 원하실 때 적합한 모델입니다.', tags: ['이더넷 연결', '안정적 결제', '고정 카운터'] },
+  { key: 'wired', label: '유선단말기', title: '프린터겸용 유선 카드단말기 (KIS-1020)', body: '이더넷 연결을 기본 탑재한 유선 카드단말기입니다. 2인치 써멀 프린터를 겸용으로 갖추고 있어 별도 영수증 프린터 없이 바로 출력할 수 있으며, 카운터가 고정된 매장에서 안정적인 결제 환경을 원하실 때 적합한 모델입니다.', tags: ['프린터겸용', '이더넷 연결', '고정 카운터'] },
   { key: 'bluetooth', label: '블루투스단말기', title: '블루투스 카드단말기 (KIS-BTR 1100)', body: '스마트폰과 블루투스로 연결해 사용하는 카드단말기입니다. 별도 유심이나 인터넷 회선 없이도 결제가 가능해, 플리마켓·팝업스토어처럼 짧은 기간만 운영하는 매장에도 적합합니다.', tags: ['블루투스 연결', '유심 불필요', '팝업·플리마켓'] },
   { key: 'tosspay', label: '토스페이단말기', title: '토스페이먼츠 포스 (탁상형 터치스크린)', body: '탁상 스탠드형 터치스크린 결제 화면을 갖춘 토스페이먼츠 포스입니다. 컴팩트한 디자인으로 좁은 카운터에도 설치가 쉬워, 카페나 소형 매장에 적합합니다.', tags: ['터치스크린', '컴팩트 디자인', '좁은 카운터 OK'] },
 ];
@@ -125,7 +125,7 @@ function regionPageTemplate(region, product) {
   const title = `${region.name} ${product.label} 설치 | 성공적인 창업`;
   const desc = `${region.name} 지역 ${product.label} 설치 안내. 설치비·관리비·위약금·신청비 없이 ${product.title}을(를) 설치해드립니다.`;
   const canonical = `${SITE}/areas/${encodeURIComponent(regionSlug(region, product))}.html`;
-  const keywords = `${region.name}${product.label}, ${region.name} ${product.label} 설치, ${product.label}, ${region.name} 카드단말기`;
+  const keywords = `${region.name}${product.label}, ${region.name} ${product.label} 설치, ${product.title}, ${product.label}, ${region.name} 카드단말기`;
   const otherProducts = PRODUCTS.filter(p => p.key !== product.key)
     .map(p => `<a href="/areas/${encodeURIComponent(regionSlug(region, p))}.html">${region.name} ${p.label} 설치</a>`).join('\n        ');
   const districtLinks = region.districts.length
@@ -186,7 +186,7 @@ function districtPageTemplate(region, district, product) {
   const desc = `${region.name} ${district_} 지역 ${product.label} 설치 안내. 설치비·관리비·위약금·신청비 없이 ${product.title}을(를) 설치해드립니다.`;
   const canonical = `${SITE}/areas/${encodeURIComponent(districtSlug(region, district, product))}.html`;
   const parentUrl = `/areas/${encodeURIComponent(regionSlug(region, product))}.html`;
-  const keywords = `${district_}${product.label}, ${district_} ${product.label} 설치, ${region.name}${district_}${product.label}, ${product.label}, ${district_} 카드단말기`;
+  const keywords = `${district_}${product.label}, ${district_} ${product.label} 설치, ${region.name}${district_}${product.label}, ${product.title}, ${district_} 카드단말기`;
   const otherProducts = PRODUCTS.filter(p => p.key !== product.key)
     .map(p => `<a href="/areas/${encodeURIComponent(districtSlug(region, district, p))}.html">${district_} ${p.label} 설치</a>`).join('\n        ');
   const hasSub = /\(.*\)$/.test(district);
