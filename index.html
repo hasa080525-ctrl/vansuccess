@@ -140,6 +140,7 @@
     background:var(--blue); color:#fff;
   }
   .mobile-cta-bar a.secondary{background:var(--ink); color:#fff;}
+  .mobile-cta-bar a.kakao{background:#FEE500; color:#191919;}
 
   /* Hero */
   .hero{background:var(--ink); color:#fff; position:relative; overflow:hidden;}
@@ -358,6 +359,7 @@
 
 <div class="mobile-cta-bar">
   <a href="tel:01039510535"><i class="ri-phone-fill"></i> 전화 문의</a>
+  <a href="https://open.kakao.com/o/sZv14RLi" target="_blank" rel="noopener" class="kakao">💬 카톡 문의</a>
   <a href="#apply" class="secondary"><i class="ri-edit-2-fill"></i> 온라인 신청</a>
 </div>
 
@@ -718,7 +720,7 @@
       </div>
       <button type="submit" class="btn-primary apply-submit">신청하기</button>
     </form>
-    <p class="apply-note">* 신청하기를 누르면 이메일 앱이 열립니다. 내용 확인 후 전송 버튼을 눌러주시면 접수됩니다. (메일 앱이 연결되어 있지 않다면 010-3951-0535로 전화·문자 주셔도 됩니다.)</p>
+    <p class="apply-note">* 신청하기를 누르면 카카오톡 오픈채팅창이 열리고 신청 내용이 자동으로 복사되며, 이메일 앱도 함께 열립니다. 채팅창에 붙여넣기(꾹 눌러서 붙여넣기) 하시거나, 이메일에서 전송 버튼을 눌러주시면 접수됩니다. (둘 다 연결되어 있지 않다면 010-3951-0535로 전화·문자 주셔도 됩니다.)</p>
   </div>
 </section>
 
@@ -1106,6 +1108,17 @@
     }
     const subject = `[온라인 설치 신청] ${biz} - ${region}`;
     const body = `업종: ${biz}\n지역: ${region}\n대표자번호: ${phone}\n사업자번호: ${bizNum}\n가게주소: ${address}\n필요한 물품: ${items}`;
+
+    // window.open must fire synchronously from the click handler, or browsers
+    // treat it as a blocked popup instead of a user-initiated action.
+    window.open('https://open.kakao.com/o/sZv14RLi', '_blank', 'noopener');
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(`${subject}\n\n${body}`).then(() => {
+        alert('신청 내용이 복사되었습니다.\n곧 열리는(또는 열린) 카카오톡 채팅창에 붙여넣기(꾹 눌러서 붙여넣기) 해주세요!\n이메일 앱도 함께 열립니다.');
+      }).catch(() => {});
+    }
+
     window.location.href = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 </script>
