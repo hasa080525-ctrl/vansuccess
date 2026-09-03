@@ -705,8 +705,16 @@
         <input type="tel" id="applyPhone" name="phone" placeholder="010-0000-0000" required>
       </div>
       <div class="form-group">
+        <label for="applyBizNum">사업자번호</label>
+        <input type="text" id="applyBizNum" name="bizNum" placeholder="000-00-00000" required>
+      </div>
+      <div class="form-group">
         <label for="applyAddress">가게주소</label>
         <input type="text" id="applyAddress" name="address" placeholder="가게 주소를 입력해주세요" required>
+      </div>
+      <div class="form-group">
+        <label for="applyItems">필요한 물품</label>
+        <input type="text" id="applyItems" name="items" placeholder="예: 2인치 단말기, 포스기 세트, 키오스크" required>
       </div>
       <button type="submit" class="btn-primary apply-submit">신청하기</button>
     </form>
@@ -1089,13 +1097,15 @@
     const biz = document.getElementById('applyBiz').value.trim();
     const region = document.getElementById('applyRegion').value;
     const phone = document.getElementById('applyPhone').value.trim();
+    const bizNum = document.getElementById('applyBizNum').value.trim();
     const address = document.getElementById('applyAddress').value.trim();
-    if (!biz || !region || !phone || !address) {
+    const items = document.getElementById('applyItems').value.trim();
+    if (!biz || !region || !phone || !bizNum || !address || !items) {
       alert('모든 항목을 입력해주세요.');
       return;
     }
     const subject = `[온라인 설치 신청] ${biz} - ${region}`;
-    const body = `업종: ${biz}\n지역: ${region}\n대표자번호: ${phone}\n가게주소: ${address}`;
+    const body = `업종: ${biz}\n지역: ${region}\n대표자번호: ${phone}\n사업자번호: ${bizNum}\n가게주소: ${address}\n필요한 물품: ${items}`;
     window.location.href = `mailto:${OWNER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 </script>
