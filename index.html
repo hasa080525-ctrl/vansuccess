@@ -1018,6 +1018,11 @@
     const subject = `[온라인 설치 신청] ${biz} - ${region}`;
     const body = `업종: ${biz}\n지역: ${region}\n대표자번호: ${phone}\n사업자번호: ${bizNum}\n가게주소: ${address}\n필요한 물품: ${items}`;
 
+    fetch('https://script.google.com/macros/s/AKfycbwOqTTLkqZ_frFyT6N0QcjYZT3jsG0puhq9wRmrQSPxhFgn0fXET3AoGVj4PiHMNHcg/exec', {
+      method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ site: '성공적인 창업', name: biz, phone: phone, grade: region, subject: items, message: `[사업자번호: ${bizNum}] 주소: ${address}` })
+    }).catch(() => {});
+
     // window.open must fire synchronously from the click handler, or browsers
     // treat it as a blocked popup instead of a user-initiated action.
     window.open('https://open.kakao.com/o/sZv14RLi', '_blank', 'noopener');
