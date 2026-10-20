@@ -41,10 +41,12 @@ const REGIONS = [
   { name: '제주특별자치도', districts: ['제주시', '서귀포시'] },
 ];
 
+// Model numbers/specs below are kept in sync with the real catalog shown
+// on index.html's #products section — do not invent model numbers here.
 const PRODUCTS = [
   { key: 'card', label: '카드단말기', title: '카드단말기', body: '매장 규모와 업종에 맞춰 카드단말기를 무료로 설치해드립니다. 2인치·3인치 등 원하시는 모델을 상담을 통해 선택하실 수 있으며, 설치비·관리비·위약금·신청비가 전혀 없습니다.', tags: ['무료설치', '위약금 없음', '당일 A/S'] },
-  { key: 'wireless', label: '무선단말기', title: '무선 카드단말기 (KIS-8310)', body: '3G/4G(LTE)·와이파이를 지원하는 무선 카드단말기입니다. 배터리 완충 시 종일 사용이 가능해, 매장 안에서 자리를 옮겨가며 결제하거나 배달·포장 응대가 잦은 매장에 적합합니다.', tags: ['LTE·와이파이', '종일 사용', '이동 결제'] },
-  { key: 'wired', label: '유선단말기', title: '프린터겸용 유선 카드단말기 (KIS-1020)', body: '이더넷 연결을 기본 탑재한 유선 카드단말기입니다. 2인치 써멀 프린터를 겸용으로 갖추고 있어 별도 영수증 프린터 없이 바로 출력할 수 있으며, 카운터가 고정된 매장에서 안정적인 결제 환경을 원하실 때 적합한 모델입니다.', tags: ['프린터겸용', '이더넷 연결', '고정 카운터'] },
+  { key: 'wireless', label: '무선단말기', title: '무선 카드단말기 (LC-D300)', body: '3G/4G(LTE)·와이파이를 지원하는 무선 카드단말기입니다. 배터리 완충 시 종일 사용이 가능해, 매장 안에서 자리를 옮겨가며 결제하거나 배달·포장 응대가 잦은 매장에 적합합니다.', tags: ['LTE·와이파이', '종일 사용', '이동 결제'] },
+  { key: 'wired', label: '유선단말기', title: '프린터겸용 유선 카드단말기 (KIS-2200)', body: '이더넷 연결을 기본 탑재한 유선 카드단말기입니다. 2인치 써멀 프린터를 겸용으로 갖추고 있어 별도 영수증 프린터 없이 바로 출력할 수 있으며, 카운터가 고정된 매장에서 안정적인 결제 환경을 원하실 때 적합한 모델입니다.', tags: ['프린터겸용', '이더넷 연결', '고정 카운터'] },
   { key: 'bluetooth', label: '블루투스단말기', title: '블루투스 카드단말기 (KIS-BTR 1100)', body: '스마트폰과 블루투스로 연결해 사용하는 카드단말기입니다. 별도 유심이나 인터넷 회선 없이도 결제가 가능해, 플리마켓·팝업스토어처럼 짧은 기간만 운영하는 매장에도 적합합니다.', tags: ['블루투스 연결', '유심 불필요', '팝업·플리마켓'] },
   { key: 'tosspay', label: '토스페이단말기', title: '토스페이먼츠 포스 (탁상형 터치스크린)', body: '탁상 스탠드형 터치스크린 결제 화면을 갖춘 토스페이먼츠 포스입니다. 컴팩트한 디자인으로 좁은 카운터에도 설치가 쉬워, 카페나 소형 매장에 적합합니다.', tags: ['터치스크린', '컴팩트 디자인', '좁은 카운터 OK'] },
 ];
@@ -70,6 +72,32 @@ function districtSlug(region, district, product) {
   return `${region.name}-${baseName(district)}-${product.label}`;
 }
 
+// Structured data helpers. Breadcrumb mirrors the visible .breadcrumb trail
+// on each page; FAQ JSON-LD mirrors faqMini()'s visible Q&A verbatim.
+function breadcrumbJsonLd(items) {
+  return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+${items.map((it, i) => `    {"@type": "ListItem", "position": ${i + 1}, "name": ${JSON.stringify(it.name)}, "item": ${JSON.stringify(it.url)}}`).join(',\n')}
+  ]
+}
+</script>`;
+}
+function faqJsonLd() {
+  return `<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type": "Question", "name": "설치비·관리비·위약금이 정말 없나요?", "acceptedAnswer": {"@type": "Answer", "text": "네, 설치비·관리비·위약금·신청비가 전혀 없습니다."}},
+    {"@type": "Question", "name": "고장·오류 발생 시 얼마나 빨리 대응해주시나요?", "acceptedAnswer": {"@type": "Answer", "text": "당일 A/S를 원칙으로 하며, 문제 발생 시 빠르게 방문 대응해드립니다."}}
+  ]
+}
+</script>`;
+}
+
 function head(title, desc, canonical, keywords) {
   return `<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -86,7 +114,7 @@ function head(title, desc, canonical, keywords) {
 <meta property="og:site_name" content="성공적인 창업">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(desc)}">
-<meta property="og:image" content="${SITE}/images/og-image-v4.jpg">
+<meta property="og:image" content="${SITE}/images/og-image-v5.jpg">
 <meta property="og:url" content="${canonical}">`;
 }
 
@@ -131,11 +159,18 @@ function regionPageTemplate(region, product) {
   const districtLinks = region.districts.length
     ? region.districts.map(d => `<a href="/areas/${encodeURIComponent(districtSlug(region, d, product))}.html">${region.name} ${baseName(d)} ${product.label} 설치</a>`).join('\n          ')
     : '';
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: '홈', url: `${SITE}/` },
+    { name: '서비스 지역', url: `${SITE}/areas/` },
+    { name: region.name, url: canonical },
+  ]);
 
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
 ${head(title, desc, canonical, keywords)}
+${breadcrumbLd}
+${faqJsonLd()}
 </head>
 <body>
 ${header()}
@@ -191,11 +226,19 @@ function districtPageTemplate(region, district, product) {
     .map(p => `<a href="/areas/${encodeURIComponent(districtSlug(region, district, p))}.html">${district_} ${p.label} 설치</a>`).join('\n        ');
   const hasSub = /\(.*\)$/.test(district);
   const subNote = hasSub ? district.match(/\((.*)\)$/)[1] : '';
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: '홈', url: `${SITE}/` },
+    { name: '서비스 지역', url: `${SITE}/areas/` },
+    { name: region.name, url: `${SITE}${parentUrl}` },
+    { name: district_, url: canonical },
+  ]);
 
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
 ${head(title, desc, canonical, keywords)}
+${breadcrumbLd}
+${faqJsonLd()}
 </head>
 <body>
 ${header()}
@@ -249,10 +292,16 @@ function hubTemplate() {
       </div>`;
   }).join('\n');
 
+  const breadcrumbLd = breadcrumbJsonLd([
+    { name: '홈', url: `${SITE}/` },
+    { name: '서비스 지역', url: `${SITE}/areas/` },
+  ]);
+
   return `<!DOCTYPE html>
 <html lang="ko">
 <head>
 ${head('전국 서비스 지역 전체 목록 | 성공적인 창업', '전국 16개 광역지자체 × 카드단말기·무선단말기·유선단말기·블루투스단말기·토스페이단말기 설치 안내 페이지 모음입니다.', `${SITE}/areas/`, '전국 카드단말기 설치, 지역별 카드단말기 설치, 무선단말기 설치, 유선단말기 설치, 블루투스단말기 설치, 토스페이단말기 설치')}
+${breadcrumbLd}
 </head>
 <body>
 ${header()}
